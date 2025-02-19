@@ -1,0 +1,6 @@
+service : {
+    "increment": () -> ();
+    "decrement": () -> ();
+    "reset": () -> ();
+    "get_count": () -> (int32) query;
+}
