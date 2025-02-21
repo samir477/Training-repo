@@ -1,34 +1,36 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { Program, AnchorProvider, web3 } from '@project-serum/anchor';
+import { Program, AnchorProvider, web3, BN } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
+import { TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from '@solana/spl-token';
 import idl from '../idl/tokenproject.json';
 
 const TokenInterface = () => {
   const { connection } = useConnection();
-  const { publicKey, signTransaction, sendTransaction } = useWallet();
+  const wallet = useWallet();
   const [amount, setAmount] = useState('');
   const [balance, setBalance] = useState(null);
   const [status, setStatus] = useState('');
   const [recipient, setRecipient] = useState('');
+  const [publicKey, setPublicKey] = useState(null);
 
-  // Your program ID from declare_id!()
+  // Your program ID (Update with your deployed program ID)
   const PROGRAM_ID = new PublicKey('7GdAN4958LVHbDi3sCGSaSkAiN6HcjDW8txVwPaX4NLd');
 
+  useEffect(() => {
+    if (wallet.publicKey) {
+      setPublicKey(wallet.publicKey);
+    }
+  }, [wallet]);
+
   const getProvider = () => {
-    if (!publicKey) return null;
-    const provider = new AnchorProvider(
+    if (!wallet.publicKey) return null;
+    return new AnchorProvider(
       connection,
-      {
-        publicKey,
-        signTransaction,
-        sendTransaction,
-      },
+      wallet,
       { commitment: 'processed' }
     );
-    return provider;
   };
 
   const getProgram = () => {
@@ -40,16 +42,12 @@ const TokenInterface = () => {
   const checkBalance = async () => {
     try {
       const program = getProgram();
-      if (!program) return;
+      if (!program || !publicKey) return;
 
-      const balance = await program.methods
-        .checkBalance()
-        .accounts({
-          user: publicKey,
-        })
-        .view();
+      const tokenAccount = await getAssociatedTokenAddress(PROGRAM_ID, publicKey);
 
-      setBalance(balance.toString());
+      const balance = await program.account.tokenAccount.fetch(tokenAccount);
+      setBalance(balance.amount.toString());
       setStatus('Balance checked successfully');
     } catch (error) {
       console.error('Error:', error);
@@ -60,12 +58,19 @@ const TokenInterface = () => {
   const mintTokens = async () => {
     try {
       const program = getProgram();
-      if (!program) return;
+      if (!program || !publicKey) return;
+
+      const mintAccount = new PublicKey('YourMintAccountHere');
+      const adminTokenAccount = await getAssociatedTokenAddress(mintAccount, publicKey);
 
       await program.methods
-        .mintTokens(new web3.BN(amount), true)
+        .mintTokens(new BN(amount), true)
         .accounts({
-          user: publicKey,
+          admin: publicKey,
+          mintAccount: mintAccount,
+          adminTokenAccount: adminTokenAccount,
+          recipientTokenAccount: adminTokenAccount,
+          tokenProgram: TOKEN_PROGRAM_ID,
         })
         .rpc();
 
@@ -85,15 +90,20 @@ const TokenInterface = () => {
 
     try {
       const program = getProgram();
-      if (!program) return;
+      if (!program || !publicKey) return;
 
       const recipientPubkey = new PublicKey(recipient);
+      const senderTokenAccount = await getAssociatedTokenAddress(PROGRAM_ID, publicKey);
+      const recipientTokenAccount = await getAssociatedTokenAddress(PROGRAM_ID, recipientPubkey);
 
       await program.methods
-        .transferTokens(new web3.BN(amount))
+        .transferTokens(new BN(amount))
         .accounts({
           from: publicKey,
-          to: recipientPubkey,
+          fromAccount: senderTokenAccount,
+          toAccount: recipientTokenAccount,
+          mint: new PublicKey('YourMintAccountHere'),
+          tokenProgram: TOKEN_PROGRAM_ID,
         })
         .rpc();
 
@@ -105,52 +115,19 @@ const TokenInterface = () => {
     }
   };
 
-  const burnTokens = async () => {
-    try {
-      const program = getProgram();
-      if (!program) return;
-
-      await program.methods
-        .burnTokens(new web3.BN(amount))
-        .accounts({
-          user: publicKey,
-        })
-        .rpc();
-
-      setStatus('Tokens burned successfully');
-      checkBalance();
-    } catch (error) {
-      console.error('Error:', error);
-      setStatus(`Error burning tokens: ${error.message}`);
-    }
-  };
-
-  const requestTokens = async () => {
-    try {
-      const program = getProgram();
-      if (!program) return;
-
-      await program.methods
-        .requestTokens(new web3.BN(amount))
-        .accounts({
-          user: publicKey,
-        })
-        .rpc();
-
-      setStatus('Token request submitted successfully');
-    } catch (error) {
-      console.error('Error:', error);
-      setStatus(`Error requesting tokens: ${error.message}`);
-    }
-  };
-
   return (
     <div className="max-w-2xl mx-auto p-4 space-y-4">
       <h1 className="text-3xl font-bold text-center mb-8">Token Program Interface</h1>
       
-      <div className="flex justify-center mb-6">
-        <WalletMultiButton />
-      </div>
+      {publicKey ? (
+        <div className="text-center mb-4">
+          <p>Connected Wallet: {publicKey.toString()}</p>
+        </div>
+      ) : (
+        <div className="text-center mb-4">
+          <p>Wallet not connected</p>
+        </div>
+      )}
 
       {publicKey && (
         <div className="space-y-4">
@@ -184,18 +161,6 @@ const TokenInterface = () => {
               className="p-2 bg-green-500 text-white rounded hover:bg-green-600"
             >
               Transfer Tokens
-            </button>
-            <button
-              onClick={burnTokens}
-              className="p-2 bg-red-500 text-white rounded hover:bg-red-600"
-            >
-              Burn Tokens
-            </button>
-            <button
-              onClick={requestTokens}
-              className="p-2 bg-purple-500 text-white rounded hover:bg-purple-600"
-            >
-              Request Tokens
             </button>
             <button
               onClick={checkBalance}
