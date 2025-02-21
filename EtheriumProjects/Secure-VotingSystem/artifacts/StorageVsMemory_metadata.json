@@ -1,0 +1,121 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "oldText",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "newText",
+						"type": "string"
+					}
+				],
+				"name": "TextUpdated",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "getStoredText",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "newText",
+						"type": "string"
+					}
+				],
+				"name": "updateWithMemory",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "newText",
+						"type": "string"
+					}
+				],
+				"name": "updateWithStorage",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"memeoryvsstorage.sol": "StorageVsMemory"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"memeoryvsstorage.sol": {
+			"keccak256": "0xcd212d2bee69d40ef5962f5dcaedb07be563d8b52efd1bd5ab40e39f4ddaf566",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f7f916aefd545c35d340e6e9ddb763cd101b74a3d3e152532513560de75c3e41",
+				"dweb:/ipfs/QmSR1t2AxhhsFUn6Vf2WBFZsAoeqBk9tnUajUkbp5KNfwY"
+			]
+		}
+	},
+	"version": 1
+}

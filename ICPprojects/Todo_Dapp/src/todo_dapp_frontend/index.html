@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskMaster - Todo DApp</title>
+  <link rel="stylesheet" href="index.scss">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">TaskMaster</div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#todo">Todo List</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Organize Your Life with TaskMaster</h1>
+      <p class="hero-subtitle">The simple, powerful way to manage your daily tasks</p>
+      <a href="#todo" class="hero-button">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <h2 class="section-title">Key Features</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <i class="fas fa-tasks feature-icon"></i>
+          <h3>Easy Task Management</h3>
+          <p>Add, complete, and remove tasks with simple clicks</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-star feature-icon"></i>
+          <h3>Priority Marking</h3>
+          <p>Mark important tasks to focus on what matters most</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-chart-line feature-icon"></i>
+          <h3>Progress Tracking</h3>
+          <p>Monitor your completed and pending tasks</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Todo App Section -->
+  <section id="todo" class="todo-section">
+    <div class="container">
+      <div id="root"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h3>TaskMaster</h3>
+          <p>Simplify your task management and boost productivity.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#todo">Todo List</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Connect With Us</h3>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 TaskMaster. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cursor Animation -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

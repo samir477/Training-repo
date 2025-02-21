@@ -1,0 +1,15 @@
+{
+  "name": "token-itemcart",
+  "version": "1.0.0",
+  "description": "A token-based shopping contract",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "deploy:local": "hardhat run --network localhost scripts/deploy.js"
+  },
+  "dependencies": {
+    "hardhat": "^2.19.1",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0"
+  }
+}

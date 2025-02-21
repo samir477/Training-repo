@@ -1,0 +1,10 @@
+service : {
+  add_task: (text) -> (nat32);
+  get_tasks: () -> (vec record { id: nat32; description: text; completed: bool; important: bool });
+  mark_task_completed: (nat32) -> ();
+  mark_task_important: (nat32) -> ();
+  remove_task: (nat32) -> ();
+  count_completed_tasks: () -> (nat32);
+  count_pending_tasks: () -> (nat32);
+  debug_get_state: () -> (text);
+}
