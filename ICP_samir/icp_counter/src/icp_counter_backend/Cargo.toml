@@ -1,0 +1,14 @@
+[package]
+name = "icp_counter_backend"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+ic-cdk = "0.13.2"
+ic-cdk-macros = "0.8"
+candid = "0.10.4"
+serde = { version = "1.0", features = ["derive"] }  # ✅ Fix for missing serde
+serde_json = "1.0"

@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "icp_counter_backend": {
+      "candid": "src/icp_counter_backend/icp_counter_backend.did",
+      "package": "icp_counter_backend",
+      "type": "rust"
+    },
+    "icp_counter_frontend": {
+      "dependencies": [
+        "icp_counter_backend"
+      ],
+      "source": [
+        "src/icp_counter_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "icp_counter_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
