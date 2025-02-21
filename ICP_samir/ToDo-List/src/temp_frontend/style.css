@@ -1,0 +1,63 @@
+/* styles.css */
+
+/* Center the counter in the middle of the screen */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f3f4f6;
+  }
+  
+  /* Counter box styling */
+  .counter-box {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Counter number */
+  .counter-number {
+    font-size: 50px;
+    font-weight: bold;
+    color: #2563eb;
+    margin: 20px 0;
+  }
+  
+  /* Buttons */
+  .button-group {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .button {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .button.increment {
+    background-color: #10b981;
+    color: white;
+  }
+  
+  .button.increment:hover {
+    background-color: #059669;
+  }
+  
+  .button.decrement {
+    background-color: #ef4444;
+    color: white;
+  }
+  
+  .button.decrement:hover {
+    background-color: #dc2626;
+  }
+  

@@ -1,0 +1,16 @@
+[package]
+name = "temp_backend"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+ic-cdk = "0.12"  # Ensure this is the latest version
+ic-cdk-macros = "0.8"
+candid = "0.8"
+serde = "1.0"
+serde_json = "1.0"
